@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using UnityEditor.U2D.Path;
 using UnityEngine;
 
 public class SelectionController : PlayerController
 {
     [SerializeField] private Transform _selectionAreaTransform;
-    private Pathfinding _pathfinding;
+    [SerializeField] private int _formUnitPerRow;
+    [SerializeField] private int _formSpacingBetweenUnits;
 
     private Vector2 _startPosition;
     private Vector2 _endPosition;
@@ -16,13 +16,11 @@ public class SelectionController : PlayerController
     private Building _selectedBuilding;
 
     public event Action<Building> BuildingSelected;
-    public event Action<Unit> UnitSelected;
 
     private bool _insideGrid;
 
     public void Initialize()
     {
-        _pathfinding = new(GridController);
         _selectionAreaTransform.gameObject.SetActive(false);
     }
 
@@ -47,7 +45,7 @@ public class SelectionController : PlayerController
             _selectionAreaTransform.localScale = upperRight - lowerLeft;
         }
 
-        if (Input.GetMouseButtonUp(0) && _insideGrid)
+        if (Input.GetMouseButtonUp(0))
         {
             _endPosition = MousePos;
             _selectionAreaTransform.gameObject.SetActive(false);
@@ -58,6 +56,7 @@ public class SelectionController : PlayerController
             });
             _selectedUnits.Clear();
 
+            if (!_insideGrid) return;
             if (_selectedBuilding != null) _selectedBuilding.GetSelected(false);
             _selectedBuilding = null;
 
@@ -69,18 +68,21 @@ public class SelectionController : PlayerController
                 {
                     _selectedUnits.Add(selectedUnit);
                     selectedUnit.GetSelected(true);
-                    BuildingSelected?.Invoke(null);
                 }
+                BuildingSelected?.Invoke(null);
+
             }
             else
             {
-                _selectedBuilding = colliders.Select(collider => collider.GetComponent<Building>()).LastOrDefault(building => building != null); //Son noktaya uzaklýk?
+                _selectedBuilding = colliders.Select(collider => collider.GetComponent<Building>()).LastOrDefault(building => building != null);
                 BuildingSelected?.Invoke(_selectedBuilding);
                 if (_selectedBuilding != null)
                 {
                     _selectedBuilding.GetSelected(true);
                 }
             }
+
+            _startPosition = _endPosition;
         }
     }
 
@@ -92,11 +94,15 @@ public class SelectionController : PlayerController
         _insideGrid = GridController.IsMouseInGrid(MousePos);
 
         HandleSelection();
+        ManageUnits();  
+    }
 
+    public void ManageUnits()
+    {
         if (Input.GetMouseButtonDown(1))
         {
             var clickedObject = Physics2D.OverlapPoint(MousePos);
-            if(clickedObject != null)
+            if (clickedObject != null)
             {
                 clickedObject.TryGetComponent(out IDamagable damagable);
                 _selectedUnits.ForEach(unit =>
@@ -106,28 +112,10 @@ public class SelectionController : PlayerController
             }
             else
             {
-                var numRows = Mathf.CeilToInt((float)_selectedUnits.Count / 5);
-                var numCols = Mathf.Min(5, _selectedUnits.Count);
-                var spacing = GridController.GetCellRadius();
-                // Calculate the total width and height of the box
-                var boxWidth = (numCols - 1) * spacing;
-                var boxHeight = (numRows - 1) * spacing;
-                for (int i = 0; i < _selectedUnits.Count; i++)
-                {
-                    var unit = _selectedUnits[i];
-                    var row = i / 5;
-                    var col = i % 5;
-
-                    // Calculate the position of the current object within the box
-                    var objectPos = MousePos + new Vector2(col * spacing, row * spacing);
-                    // Move the object to its calculated position
-                    
-                    unit.MoveToTarget(objectPos);
-                };
+                UnitsFormation(_selectedUnits);
             }
         }
     }
-
     public override void Dispose()
     {
         base.Dispose();
@@ -143,6 +131,7 @@ public class SelectionController : PlayerController
 
     public override void Activate()
     {
+        _startPosition = _endPosition;
         base.Activate();
     }
 
@@ -151,7 +140,27 @@ public class SelectionController : PlayerController
         base.Deactivate();
         if( _selectedBuilding != null ) { _selectedBuilding.GetSelected(false); }
         _selectionAreaTransform.transform.position = MousePos;
-        _startPosition = Vector2.zero;
-        _endPosition = Vector2.zero;
+
+    }
+
+    public void UnitsFormation(List<Unit> selectedUnits)
+    {
+        int numRows = Mathf.CeilToInt((float)selectedUnits.Count / _formUnitPerRow);
+        int numCols = Mathf.Min(_formUnitPerRow, selectedUnits.Count);
+
+        float boxWidth = (numCols - 1) * _formSpacingBetweenUnits;
+        float boxHeight = (numRows - 1) * _formSpacingBetweenUnits;
+
+        Vector3 startPos = (Vector3)MousePos - new Vector3(boxWidth / 2, boxHeight / 2, 0);
+
+        for (int i = 0; i < selectedUnits.Count; i++)
+        {
+            int row = i / _formUnitPerRow;
+            int col = i % _formUnitPerRow;
+
+            Vector3 objectPos = startPos + new Vector3(col * _formSpacingBetweenUnits, row * _formSpacingBetweenUnits, 0);
+
+            selectedUnits[i].MoveToTarget(objectPos);
+        }
     }
 }

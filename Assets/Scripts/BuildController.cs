@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildController : PlayerController
@@ -32,7 +31,6 @@ public class BuildController : PlayerController
 
         MousePos = GetMousePos();
         _insideGrid = GridController.IsMouseInGrid(MousePos);
-        Debug.LogError("BuildController is Executing");
 
         _cellSelector.localScale = _insideGrid ? _cellSelectorScale : Vector2.zero;
 
@@ -55,7 +53,6 @@ public class BuildController : PlayerController
 
     private void SelectBuildingCell(CellData selectedCell)
     {
-        var selectedCellList = new List<CellData>(); // Hello
         _notPlacable = false;
         for (int x = 0; x < _buildingSettings.buildingSize.x && !_notPlacable; x++)
         {

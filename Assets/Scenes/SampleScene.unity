@@ -182,7 +182,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -5
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5164204, g: 0.5188679, b: 0.5182143, a: 1}
+  m_Color: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -411,6 +411,14 @@ PrefabInstance:
       propertyPath: _buildingButtonList.Array.data[1]
       value: 
       objectReference: {fileID: 1982564106}
+    - target: {fileID: 3124264024035424021, guid: 0c930ac00f08a0845a93225d791366e1, type: 3}
+      propertyPath: _formUnitPerRow
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3124264024035424021, guid: 0c930ac00f08a0845a93225d791366e1, type: 3}
+      propertyPath: _formSpacingBetweenUnits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3124264025385869332, guid: 0c930ac00f08a0845a93225d791366e1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -468,6 +476,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8154214194963423482, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214194963423482, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214194963423483, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Name
+      value: PowerPlant_Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214195653122587, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214195653122587, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214195653122587, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196013208336, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Name
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196013208342, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196013208342, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Color.g
+      value: 0.5294118
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196013208342, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5294118
+      objectReference: {fileID: 0}
     - target: {fileID: 8154214196833824050, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -559,6 +607,18 @@ PrefabInstance:
     - target: {fileID: 8154214196833824078, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196986820952, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196986820952, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8154214196986820953, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}
+      propertyPath: m_Name
+      value: Barracks_Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bb41041a5bd4844fa4403fc4f38cde2, type: 3}

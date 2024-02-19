@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994b7e96fe3333949af040d79f22473e, type: 3}
   m_Name: PowerPlant
   m_EditorClassIdentifier: 
-  buildingPrefab: {fileID: 8703831142069781016, guid: 549f6eaecd3597d4dbfc74a649450d9a, type: 3}
-  buildingSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  buildingSprite: {fileID: 21300000, guid: 0703622834c595d479efc25d25f45046, type: 3}
   buildingSize: {x: 2, y: 3}
   buildingHealth: 50
   buildingType: 2

@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class GridData
@@ -32,7 +30,6 @@ public class GridData
                 var pos = GetWorldPositionFromIndex(index);
                 CellData cellData = new(index, pos);
                 CellArray[x, y] = cellData;
-                //Debug.LogError("Cell index: (" + x +", "+ y + ") --- Cell center pos: " + cellData.Pos);
             }
         }
     }
